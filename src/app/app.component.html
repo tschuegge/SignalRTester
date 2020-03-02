@@ -1,6 +1,7 @@
 <nav class="navbar fixed-top navbar-dark bg-dark">
   <div class="container">
-    <span class="navbar-brand">SignalR Tester</span>
+    <span class="navbar-brand">SignalR Tester<small class="navbar-text ml-2">{{version}}</small></span>
+
     <div class="form-inline">
       <div ngbDropdown [placement]="'bottom-right'" [display]="'dynamic'">
         <a class="nav-link text-muted" ngbDropdownToggle id="menu" style="cursor: pointer"><span class="navbar-toggler-icon"></span></a>
@@ -13,24 +14,24 @@
   </div>
 </nav>
 
-<div class="container" style="margin-top: 65px;">
+<div class="container" style="margin-top: 80px;">
   <h5>Connection</h5>
   <div class="form-group row">
-    <label for="hubUrl" class="col-sm-2 col-form-label">Hub URL:</label>
-    <div class="col-sm-8">
+    <label for="hubUrl" class="col-md-2 col-form-label">Hub URL:</label>
+    <div class="col-md-8">
       <input type="text" class="form-control" name="hubUrl" id="hubUrl" [(ngModel)]="formdata.hubUrl" [disabled]="connectionstate === 'connected' || connectionstate === 'connecting'">
     </div>
-    <div class="col-sm-2">
+    <div class="col-md-2">
       <button class="btn btn-primary btn-block" (click)="connect()" [disabled]="connectionstate === 'connected' || connectionstate === 'connecting'">Connect</button>
     </div>
   </div>
   <div class="form-group row">
-    <label class="col-sm-2 col-form-label">Connection state:</label>
-    <div class="col-sm-8">
+    <label class="col-md-2 col-form-label">Connection state:</label>
+    <div class="col-md-8">
       <input type="text" disabled class="form-control-plaintext font-weight-bold" name="hubUrl" id="hubUrl" [value]="hubConnection?.state || 'Disconnected'">
     </div>
-    <div class="col-sm-2">
-      <button class="btn btn-primary btn-block" (click)="disconnect()" [disabled]="connectionstate === 'disconnected' || connectionstate === 'disconnecting'">Disconnect</button>
+    <div class="col-md-2">
+      <button class="btn btn-primary btn-block text-truncate" (click)="disconnect()" [disabled]="connectionstate === 'disconnected' || connectionstate === 'disconnecting'">Disconnect</button>
     </div>
   </div>
 
@@ -38,17 +39,17 @@
 
   <h5>Listen for hub method</h5>
   <div class="form-group row">
-    <label for="methodforlistening" class="col-sm-2 col-form-label">Hub method:</label>
-    <div class="col-sm-8">
+    <label for="methodforlistening" class="col-md-2 col-form-label">Hub method:</label>
+    <div class="col-md-8">
       <input type="text" class="form-control" name="methodforlistening" id="methodforlistening" #methodforlistening>
     </div>
-    <div class="col-sm-2">
+    <div class="col-md-2">
       <button class="btn btn-primary btn-block" (click)="addForListening(methodforlistening.value); methodforlistening.value = ''">Add</button>
     </div>
   </div>
   <div class="form-group row">
-    <label class="col-sm-2 col-form-label">Listening for:</label>
-    <div class="col-sm-8">
+    <label class="col-md-2 col-form-label">Listening for:</label>
+    <div class="col-md-8">
       <div *ngFor="let value of formdata.listen; let index = index" class="row">
         <div class="col">
           <input type="text" disabled class="form-control-plaintext" [value]="value">
@@ -67,17 +68,17 @@
 
   <h5>Invoke hub method</h5>
   <div class="form-group row">
-    <label for="method" class="col-sm-2 col-form-label">Hub method:</label>
-    <div class="col-sm-8">
+    <label for="method" class="col-md-2 col-form-label">Hub method:</label>
+    <div class="col-md-8">
       <input type="text" class="form-control" name="method" id="method" [(ngModel)]="formdata.method" [disabled]="connectionstate !== 'connected'">
     </div>
-    <div class="col-sm-2">
+    <div class="col-md-2">
       <button class="btn btn-primary btn-block" (click)="invoke()" [disabled]="connectionstate !== 'connected'">Invoke</button>
     </div>
   </div>
   <div class="form-group row">
-    <label for="body" class="col-sm-2 col-form-label">Body :</label>
-    <div class="col-sm-8">
+    <label for="body" class="col-md-2 col-form-label">Body :</label>
+    <div class="col-md-8">
       <textarea class="form-control" name="body" id="body" [(ngModel)]="body" [disabled]="connectionstate !== 'connected'"></textarea>
     </div>
   </div>

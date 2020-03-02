@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { HubConnection, HubConnectionBuilder } from '@microsoft/signalr';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-root',
@@ -23,6 +24,8 @@ export class AppComponent implements OnInit {
 
   connectionstate: 'disconnected' | 'disconnecting' | 'connected' | 'connecting' = 'disconnected';
 
+  version = environment.version;
+
   ngOnInit(): void {
     const settings = localStorage?.getItem(this.LOCALSTORAGE_KEY);
     if (settings) {
@@ -31,6 +34,10 @@ export class AppComponent implements OnInit {
   }
 
   async connect(): Promise<void> {
+    if (!this.formdata.hubUrl) {
+      return;
+    }
+
     this.connectionstate = 'connecting';
     this.hubConnection = new HubConnectionBuilder()
       .withUrl(this.formdata.hubUrl)
@@ -86,6 +93,10 @@ export class AppComponent implements OnInit {
   }
 
   addForListening(value: string, noadd = false): void {
+    if (!value) {
+      return;
+    }
+
     if (!noadd) {
       if (this.formdata.listen.indexOf(value) === -1) {
         this.formdata.listen.push(value);
